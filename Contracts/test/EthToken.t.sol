@@ -36,9 +36,7 @@ contract TestContract is Test {
 
     function testApprovals() public {
         c.mint(address(this), 5);
-
         c.approve(0x587EFaEe4f308aB2795ca35A27Dff8c1dfAF9e3f, 1);
-
         assertEq(c.allowance(address(this), 0x587EFaEe4f308aB2795ca35A27Dff8c1dfAF9e3f), 1);
         assertEq(c.allowance(0x587EFaEe4f308aB2795ca35A27Dff8c1dfAF9e3f, address(this)), 0);
         
