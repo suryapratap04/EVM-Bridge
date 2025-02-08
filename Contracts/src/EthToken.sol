@@ -11,6 +11,7 @@ contract EthToken is ERC20{
     }
     function mint(address to, uint256 amount) public {
         require(tokenMapping[msg.sender]<10,"You have reached the maximum limit");
+        require(amount<10,"Amount should be less than 10");
         _mint(to, amount);
         tokenMapping[msg.sender]+=amount;
     }
