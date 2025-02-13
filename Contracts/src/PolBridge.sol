@@ -24,7 +24,7 @@ contract PolygonBridge is NonblockingLzApp {
     
     constructor(
         address _tokenAddress,
-        address _layerZeroEndpoint,
+        address _layerZeroEndpoint
     ) NonblockingLzApp(_layerZeroEndpoint) Ownable(msg.sender) {
         tokenAddress = _tokenAddress;
         bridgeOwner = msg.sender;
@@ -45,13 +45,13 @@ contract PolygonBridge is NonblockingLzApp {
     }
 
     // Burn tokens when sending back to Ethereum
-    function burn(uint16 _dstChainId, address _receiver, uint256 _amount) external payable {
+    function burn(uint16 _dstChainId, uint256 _amount) external payable {
         require(Token(tokenAddress).balanceOf(msg.sender) >= _amount, "Insufficient balance");
         require(Token(tokenAddress).transferFrom(msg.sender, address(this), _amount), "Transfer failed");
         Token(tokenAddress).burn(msg.sender, _amount);
         emit Burn(msg.sender, _amount);
 
-        bytes memory payload = abi.encode(_receiver, _amount);
+        bytes memory payload = abi.encode(msg.sender, _amount);
         _lzSend(
             _dstChainId,
             payload,
@@ -62,7 +62,7 @@ contract PolygonBridge is NonblockingLzApp {
         );
     }
 
-    function changeEndpoint(address _tokenAddress, address _ethBridge, uint16 _dstChainId, bytes calldata _remoteAddress) public {
+    function changeEndpoint(address _tokenAddress, uint16 _dstChainId, bytes calldata _remoteAddress) public {
         require(msg.sender == bridgeOwner, "Not a valid Owner");
         tokenAddress = _tokenAddress;
         remoteLookup[_dstChainId] = _remoteAddress;

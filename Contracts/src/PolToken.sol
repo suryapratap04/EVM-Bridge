@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract Token is ERC20{
+contract PolToken is ERC20{
     address public owner;
     address public ownMint;
     constructor(address _ownMint) ERC20("PolToken", "PTKN") {

@@ -32,7 +32,7 @@ contract EthBridge is NonblockingLzApp {
     
     // Approch Lock and Mint 
     // Lock
-    function lock( uint16 _dstChainId, address _receiver,uint256 _amount) external payable {
+    function lock( uint16 _dstChainId,uint256 _amount) external payable {
         require(IERC20(tokenAddress).balanceOf(msg.sender) >= _amount, "Insufficient balance");
         require(IERC20(tokenAddress).allowance(msg.sender, address(this)) >= _amount, "Approve tokens first");
         require(IERC20(tokenAddress).transferFrom(msg.sender, address(this), _amount), "Token transfer failed");
@@ -41,7 +41,7 @@ contract EthBridge is NonblockingLzApp {
         emit LockandSend(msg.sender, _amount);
 
         // Prepare LayerZero payload        
-        bytes memory payload = abi.encode(_receiver, _amount);
+        bytes memory payload = abi.encode(msg.sender, _amount);
 
         // Send message to Polygon bridge contract
         _lzSend(
