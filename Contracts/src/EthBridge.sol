@@ -10,7 +10,6 @@ import {NonblockingLzApp} from "@layerzerolabs/solidity-examples/contracts/lzApp
 contract EthBridge is NonblockingLzApp {
     
     address public tokenAddress;
-    address public polygonBridge;
     address public bridgeOwner;
 
     mapping(address => uint256) public lockValue;
@@ -25,11 +24,9 @@ contract EthBridge is NonblockingLzApp {
 
     constructor(
         address _tokenAddress,
-        address _layerZeroEndpoint,
-        address _polygonBridge
+        address _layerZeroEndpoint
     ) NonblockingLzApp(_layerZeroEndpoint) Ownable(msg.sender) {
         tokenAddress = _tokenAddress;
-        polygonBridge = _polygonBridge;
         bridgeOwner = msg.sender;
     }
     
@@ -79,10 +76,9 @@ contract EthBridge is NonblockingLzApp {
     }
 
     // function to change the values and addresses and laye zero endpoints
-    function changeEndpoint(address _tokenAddress,address _polygonBridge,uint16 _dstChainId, bytes calldata _remoteAddress) public {
+    function changeEndpoint(address _tokenAddress,uint16 _dstChainId, bytes calldata _remoteAddress) public {
         require(msg.sender==bridgeOwner,"Not a valid Owner");
         tokenAddress=_tokenAddress;
-        polygonBridge=_polygonBridge;
         remoteLookup[_dstChainId] = _remoteAddress;
     }
 }
