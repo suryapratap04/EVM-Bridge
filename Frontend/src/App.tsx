@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import { Routes, Route } from "react-router-dom";
 import Faucet from "./components/Faucet";
+import Bridge from "./components/Bridge";
 
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HeroSection />} />
           <Route path="/faucet" element={<Faucet />} />
+          <Route path="/bridge" element={<Bridge />} />
         </Routes>
       </div>
     </Web3Provider>

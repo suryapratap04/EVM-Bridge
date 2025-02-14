@@ -16,7 +16,7 @@ const HeroSection = () => {
           Faucet Token
         </a>
         <a
-          href="#bridge"
+          href="/bridge"
           className="bg-blue-600 text-white py-3 px-6 rounded-full text-lg font-semibold hover:bg-blue-500 transition"
         >
           Go to Bridge
