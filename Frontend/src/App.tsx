@@ -1,14 +1,19 @@
 import { Web3Provider } from "./Web3Provider";
 import Navbar from "./components/Navbar";
-import Bridge from "./components/Bridge";
-import Token from "./components/Token";
+import HeroSection from "./components/HeroSection";
+import { Routes, Route } from "react-router-dom";
+import Faucet from "./components/Faucet";
+
+
 const App = () => {
   return (
     <Web3Provider>
-      <div className="min-h-[100vh] min-w-[100vw] h-[100%] w-[100%] border-black border-2 flex flex-col items-center pt-4">
+      <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center">
         <Navbar />
-        <Token />
-        <Bridge />
+        <Routes>
+          <Route path="/" element={<HeroSection />} />
+          <Route path="/faucet" element={<Faucet />} />
+        </Routes>
       </div>
     </Web3Provider>
   );

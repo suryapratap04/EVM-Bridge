@@ -1,20 +1,20 @@
 import { WagmiProvider, createConfig, http } from "wagmi";
-import { sepolia } from "wagmi/chains";
+import { polygonAmoy, sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { BrowserRouter } from "react-router-dom";
 
 const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
     // chains: [mainnet],
-    chains: [sepolia],
+    chains: [sepolia, polygonAmoy],
     transports: {
-      // RPC URL for each chain https://eth-sepolia.g.alchemy.com/v2/xPlxL0z8E8lRb0kKYEQKGZkKhB-7PNrI
-      //   [mainnet.id]: http(
-      //     `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
-      //   ),
       [sepolia.id]: http(
         `https://eth-sepolia.g.alchemy.com/v2/xPlxL0z8E8lRb0kKYEQKGZkKhB-7PNrI`
+      ),
+      [polygonAmoy.id]: http(
+        "https://polygon-amoy.g.alchemy.com/v2/J2GJtIZ8WX5q0QVZszBd712QRQQhSG_4"
       ),
     },
 
@@ -37,7 +37,9 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <ConnectKitProvider>{children}</ConnectKitProvider>
+        <ConnectKitProvider>
+          <BrowserRouter>{children}</BrowserRouter>
+        </ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );
