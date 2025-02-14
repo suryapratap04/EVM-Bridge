@@ -1,11 +1,32 @@
 
+# Sepolia Testnet
+# sepolia.etherscan.io
+
 # Eth Token Contract hash
 Deployer: 0xaA2B9F303b957A182a5F37273B707b2e25f24a01
+Deployed to: 0x67C49Eb56ABA3de2Cc91e6cF96585058673986e4
+Transaction hash: 0xa8b219d3327e3bcfec126aaa066b501578c479c3e8fbb050f9ab9e7735bb8401
+
+
+# Eth Bridge Contract hash
+Deployer: 0xaA2B9F303b957A182a5F37273B707b2e25f24a01
+Deployed to: 0x0B3Fd3Cae31289Ce6FC4dFE4F78253b6FbC03F3A
+Transaction hash: 0x7e3dabab80f2b7e33fcf2a0c0f4a1a015424216cc992fab6d373536e0a8a2cf0
+
+
+
+#  https://amoy.polygonscan.com/
+
+# Pol Token Contract hash (Need to change Mint Owner)
+Deployer: 0xaA2B9F303b957A182a5F37273B707b2e25f24a01
 Deployed to: 0x2854c61632b1b6B0F0EE47C7c0cdE5a6e7eBdB77
-Transaction hash: 0xd0fb81e4fee5fbb29982c494cbe5387cb54f162a64e947efe365920dbdeb4815
+Transaction hash: 0xe336e06d226261cfc569d58e885f4a05df09285108f6bb3c815b01cfeb1886c1
 
 
-# Updated Eth Token Contract hash
+# Polygon Bridge Contract hash
 Deployer: 0xaA2B9F303b957A182a5F37273B707b2e25f24a01
 Deployed to: 0x919b7Ed5c5018185322CF8859DB92d4E83d66dF4
-Transaction hash: 0x9dee86d0bc093b911bc842aa66c253e89c013da6764b1f78f202436e08f52577
+Transaction hash: 0xf2359e3abafe60f8ca8a6f0937f49d45ca6ddab0e9a466319665b0ca1b68cf84
+
+
+
