@@ -10,10 +10,10 @@ const HeroSection = () => {
       </p>
       <div className="mt-6 flex flex-col md:flex-row gap-4 md:gap-6">
         <a
-          href="/faucet"
+          href="/mintToken"
           className="bg-yellow-500 text-black py-3 px-6 rounded-full text-lg font-semibold hover:bg-yellow-400 transition"
         >
-          Faucet Token
+          Mint Token
         </a>
         <a
           href="/bridge"

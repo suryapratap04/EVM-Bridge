@@ -2,9 +2,8 @@ import { Web3Provider } from "./Web3Provider";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import { Routes, Route } from "react-router-dom";
-import Faucet from "./components/Faucet";
 import Bridge from "./components/Bridge";
-
+import MintToken from "./components/MintToken";
 
 const App = () => {
   return (
@@ -13,8 +12,8 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<HeroSection />} />
-          <Route path="/faucet" element={<Faucet />} />
           <Route path="/bridge" element={<Bridge />} />
+          <Route path="/mintToken" element={<MintToken />} />
         </Routes>
       </div>
     </Web3Provider>
