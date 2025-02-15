@@ -2,7 +2,6 @@ import { WagmiProvider, createConfig, http } from "wagmi";
 import { polygonAmoy, sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
-import { BrowserRouter } from "react-router-dom";
 
 const config = createConfig(
   getDefaultConfig({
@@ -38,7 +37,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <ConnectKitProvider>
-          <BrowserRouter>{children}</BrowserRouter>
+          {children}
         </ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
