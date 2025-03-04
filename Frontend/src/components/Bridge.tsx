@@ -5,12 +5,12 @@ import { EthBridgeAbi } from "../Abi/EthBridge";
 import { EthTokenAbi } from "../Abi/EthToken";
 
 const wagmiContractConfig = {
-  address: "0x67C49Eb56ABA3de2Cc91e6cF96585058673986e4",
+  address: "0x3fB3712731367F3ab9503dcD06eFd024E7c72642",
   abi: EthTokenAbi,
 } as const;
 
 const wagmiContractConfigEthBridge = {
-  address: "0x0B3Fd3Cae31289Ce6FC4dFE4F78253b6FbC03F3A",
+  address: "0xDb419a67652F9985767BA7D9D7C96dEDA7A14E5c",
   abi: EthBridgeAbi,
 } as const;
 
@@ -57,11 +57,10 @@ export default function Bridge() {
     toast("Approved Successfully");
     setTxHashApprove(txHashApprove);
 
-
     const txHashBridge = await writeContractAsync({
       ...wagmiContractConfigEthBridge,
       functionName: "lock",
-      args: [10160, approveAmount],
+      args: [40267, approveAmount],
     });
 
     toast("Bridge Successfully Check Explorer");
@@ -134,9 +133,7 @@ export default function Bridge() {
         <div className="flex flex-col gap-6 mt-6">
           {txHashApprove && (
             <>
-              <p className="text-gray-300 mb-8 text-lg">
-                Approve Transaction : {txHashApprove}
-              </p>
+              <p className="text-gray-300 mb-1 text-lg">Approve Transaction</p>
               <a
                 href={`https://sepolia.etherscan.io/tx/${txHashApprove}`}
                 target="_blank"
@@ -149,9 +146,7 @@ export default function Bridge() {
           )}
           {txHashBridge && (
             <>
-              <p className="text-gray-300 mb-8 text-lg">
-                Bridge Transaction : {txHashBridge}
-              </p>
+              <p className="text-gray-300 mb-1 text-lg">Bridge Transaction</p>
               <a
                 href={`https://sepolia.etherscan.io/tx/${txHashBridge}`}
                 target="_blank"

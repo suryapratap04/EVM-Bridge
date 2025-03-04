@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { PolTokenAbi } from "../Abi/PolToken";
 
 const contractConfig = {
-  address: "0x2854c61632b1b6B0F0EE47C7c0cdE5a6e7eBdB77",
+  address: "0xA26617fd7cDd479E41CEe7E64c357ACB5d617e54",
   abi: PolTokenAbi,
 } as const;
 
@@ -34,7 +34,7 @@ export default function ChangeMintOwner() {
       // Execute the contract function
       const tx = await writeContractAsync({
         ...contractConfig,
-        functionName: "changeMintOwner",
+        functionName: "setPBridge",
         args: [newOwner],
       });
 

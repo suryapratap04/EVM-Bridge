@@ -5,7 +5,7 @@ import Spinner from "./Spinner";
 import toast from "react-hot-toast";
 
 const wagmiContractConfig = {
-  address: "0x67C49Eb56ABA3de2Cc91e6cF96585058673986e4",
+  address: "0x3fB3712731367F3ab9503dcD06eFd024E7c72642",
   abi: EthTokenAbi,
 } as const;
 

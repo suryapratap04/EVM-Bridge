@@ -5,8 +5,8 @@ import { Routes, Route } from "react-router-dom";
 import Bridge from "./components/Bridge";
 import MintToken from "./components/MintToken";
 import ChangeOwner from "./components/ChangeOwner";
-import EthereumBridgeConfig from "./components/EthereumBridgeConfig";
-import PolygonBridgeConfig from "./components/PolygonBridgeConfig";
+import SetPBridge from "./components/SetBridge";
+import ChangeRemoteTrusted from "./components/changeRemoteTrusted";
 
 const App = () => {
   return (
@@ -18,14 +18,8 @@ const App = () => {
           <Route path="/bridge" element={<Bridge />} />
           <Route path="/mintToken" element={<MintToken />} />
           <Route path="/changeOwner" element={<ChangeOwner />} />
-          <Route
-            path="/ethereumBridgeConfig"
-            element={<EthereumBridgeConfig />}
-          />
-          <Route
-            path="/polygonBridgeConfig"
-            element={<PolygonBridgeConfig />}
-          />
+          <Route path="/setBridge" element={<SetPBridge />} />
+          <Route path="/changeRemoteTrusted" element={<ChangeRemoteTrusted />} /> 
         </Routes>
       </div>
     </Web3Provider>

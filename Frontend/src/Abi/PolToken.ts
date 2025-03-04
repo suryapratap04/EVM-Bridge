@@ -1,12 +1,6 @@
 export const PolTokenAbi = [
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_ownMint",
-        type: "address",
-      },
-    ],
+    inputs: [],
     stateMutability: "nonpayable",
     type: "constructor",
   },
@@ -195,6 +189,19 @@ export const PolTokenAbi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "bOwner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "address",
@@ -227,19 +234,6 @@ export const PolTokenAbi = [
       },
     ],
     name: "burn",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_ownMint",
-        type: "address",
-      },
-    ],
-    name: "changeMintOwner",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -290,7 +284,7 @@ export const PolTokenAbi = [
   },
   {
     inputs: [],
-    name: "ownMint",
+    name: "pBridge",
     outputs: [
       {
         internalType: "address",
@@ -302,16 +296,16 @@ export const PolTokenAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "owner",
-    outputs: [
+    inputs: [
       {
         internalType: "address",
-        name: "",
+        name: "_pBridge",
         type: "address",
       },
     ],
-    stateMutability: "view",
+    name: "setPBridge",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {

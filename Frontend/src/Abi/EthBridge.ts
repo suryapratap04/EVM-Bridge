@@ -3,12 +3,12 @@ export const EthBridgeAbi = [
     inputs: [
       {
         internalType: "address",
-        name: "_tokenAddress",
+        name: "_lzEndpoint",
         type: "address",
       },
       {
         internalType: "address",
-        name: "_layerZeroEndpoint",
+        name: "_etkn",
         type: "address",
       },
     ],
@@ -43,7 +43,7 @@ export const EthBridgeAbi = [
       {
         indexed: true,
         internalType: "address",
-        name: "account",
+        name: "user",
         type: "address",
       },
       {
@@ -53,7 +53,7 @@ export const EthBridgeAbi = [
         type: "uint256",
       },
     ],
-    name: "LockandSend",
+    name: "Locked",
     type: "event",
   },
   {
@@ -118,7 +118,7 @@ export const EthBridgeAbi = [
       {
         indexed: true,
         internalType: "address",
-        name: "account",
+        name: "user",
         type: "address",
       },
       {
@@ -242,9 +242,22 @@ export const EthBridgeAbi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "bytes",
+        name: "trustedPBridge",
+        type: "bytes",
+      },
+    ],
+    name: "TrustedPBridgeSet",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
         internalType: "address",
-        name: "account",
+        name: "user",
         type: "address",
       },
       {
@@ -254,7 +267,7 @@ export const EthBridgeAbi = [
         type: "uint256",
       },
     ],
-    name: "Unlock",
+    name: "Unlocked",
     type: "event",
   },
   {
@@ -272,7 +285,7 @@ export const EthBridgeAbi = [
   },
   {
     inputs: [],
-    name: "bridgeOwner",
+    name: "etkn",
     outputs: [
       {
         internalType: "address",
@@ -281,29 +294,6 @@ export const EthBridgeAbi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_tokenAddress",
-        type: "address",
-      },
-      {
-        internalType: "uint16",
-        name: "_dstChainId",
-        type: "uint16",
-      },
-      {
-        internalType: "bytes",
-        name: "_remoteAddress",
-        type: "bytes",
-      },
-    ],
-    name: "changeEndpoint",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -439,7 +429,7 @@ export const EthBridgeAbi = [
       },
       {
         internalType: "uint256",
-        name: "_amount",
+        name: "amount",
         type: "uint256",
       },
     ],
@@ -456,7 +446,26 @@ export const EthBridgeAbi = [
         type: "address",
       },
     ],
-    name: "lockValue",
+    name: "lockTimestamps",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "lockedAmounts",
     outputs: [
       {
         internalType: "uint256",
@@ -574,6 +583,19 @@ export const EthBridgeAbi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "pBridge",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "uint16",
@@ -606,59 +628,10 @@ export const EthBridgeAbi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
+    inputs: [],
     name: "refund",
     outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "refundValue",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint16",
-        name: "",
-        type: "uint16",
-      },
-    ],
-    name: "remoteLookup",
-    outputs: [
-      {
-        internalType: "bytes",
-        name: "",
-        type: "bytes",
-      },
-    ],
-    stateMutability: "view",
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -750,6 +723,19 @@ export const EthBridgeAbi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_pBridge",
+        type: "address",
+      },
+    ],
+    name: "setPBridge",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint16",
         name: "_dstChainId",
         type: "uint16",
@@ -808,6 +794,24 @@ export const EthBridgeAbi = [
     inputs: [
       {
         internalType: "uint16",
+        name: "_chainId",
+        type: "uint16",
+      },
+      {
+        internalType: "bytes",
+        name: "_trustedRemote",
+        type: "bytes",
+      },
+    ],
+    name: "setTrustRemote",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint16",
         name: "_remoteChainId",
         type: "uint16",
       },
@@ -838,19 +842,6 @@ export const EthBridgeAbi = [
     name: "setTrustedRemoteAddress",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "tokenAddress",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {

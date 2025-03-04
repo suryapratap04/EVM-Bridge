@@ -3,12 +3,12 @@ export const PolBridgeAbi = [
     inputs: [
       {
         internalType: "address",
-        name: "_tokenAddress",
+        name: "_lzEndpoint",
         type: "address",
       },
       {
         internalType: "address",
-        name: "_layerZeroEndpoint",
+        name: "_ptkn",
         type: "address",
       },
     ],
@@ -43,7 +43,7 @@ export const PolBridgeAbi = [
       {
         indexed: true,
         internalType: "address",
-        name: "account",
+        name: "user",
         type: "address",
       },
       {
@@ -53,7 +53,7 @@ export const PolBridgeAbi = [
         type: "uint256",
       },
     ],
-    name: "Burn",
+    name: "Burned",
     type: "event",
   },
   {
@@ -99,7 +99,7 @@ export const PolBridgeAbi = [
       {
         indexed: true,
         internalType: "address",
-        name: "account",
+        name: "user",
         type: "address",
       },
       {
@@ -109,7 +109,7 @@ export const PolBridgeAbi = [
         type: "uint256",
       },
     ],
-    name: "Mint",
+    name: "Minted",
     type: "event",
   },
   {
@@ -252,19 +252,6 @@ export const PolBridgeAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "bridgeOwner",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "uint16",
@@ -273,7 +260,7 @@ export const PolBridgeAbi = [
       },
       {
         internalType: "uint256",
-        name: "_amount",
+        name: "amount",
         type: "uint256",
       },
     ],
@@ -283,26 +270,16 @@ export const PolBridgeAbi = [
     type: "function",
   },
   {
-    inputs: [
+    inputs: [],
+    name: "eBridge",
+    outputs: [
       {
         internalType: "address",
-        name: "_tokenAddress",
+        name: "",
         type: "address",
       },
-      {
-        internalType: "uint16",
-        name: "_dstChainId",
-        type: "uint16",
-      },
-      {
-        internalType: "bytes",
-        name: "_remoteAddress",
-        type: "bytes",
-      },
     ],
-    name: "changeEndpoint",
-    outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -568,19 +545,13 @@ export const PolBridgeAbi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint16",
-        name: "",
-        type: "uint16",
-      },
-    ],
-    name: "remoteLookup",
+    inputs: [],
+    name: "ptkn",
     outputs: [
       {
-        internalType: "bytes",
+        internalType: "address",
         name: "",
-        type: "bytes",
+        type: "address",
       },
     ],
     stateMutability: "view",
@@ -645,6 +616,19 @@ export const PolBridgeAbi = [
       },
     ],
     name: "setConfig",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_eBridge",
+        type: "address",
+      },
+    ],
+    name: "setEBridge",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -738,6 +722,24 @@ export const PolBridgeAbi = [
       },
       {
         internalType: "bytes",
+        name: "_trustedRemote",
+        type: "bytes",
+      },
+    ],
+    name: "setTrustRemote",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint16",
+        name: "_remoteChainId",
+        type: "uint16",
+      },
+      {
+        internalType: "bytes",
         name: "_path",
         type: "bytes",
       },
@@ -763,19 +765,6 @@ export const PolBridgeAbi = [
     name: "setTrustedRemoteAddress",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "tokenAddress",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
