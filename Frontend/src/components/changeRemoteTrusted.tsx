@@ -10,22 +10,27 @@ import { PolBridgeAbi } from "../Abi/PolBridge";
 import { EthBridgeAbi } from "../Abi/EthBridge";
 
 const EBRIDGE_CONFIG = {
-  address: "0xDb419a67652F9985767BA7D9D7C96dEDA7A14E5c",
+  address: "0xE788cD5C7F5F020E42714b16AADf256B12701b39", // Sepolia EBridge
   abi: EthBridgeAbi,
 } as const;
 
 const PBRIDGE_CONFIG = {
-  address: "0x6459C29749D6D85124d9d232Fe3d09fFf70267E9",
+  address: "0x26c521118e7EF2Ee9009fbE7ba4D2BEdAB97B3fD", // Amoy PBridge
   abi: PolBridgeAbi,
 } as const;
 
-const SEPOLIA_CHAIN_ID = 11155111;
-const AMOY_CHAIN_ID = 80002;
+const SEPOLIA_CHAIN_ID = 11155111; // Ethereum Sepolia (EVM chain ID)
+const AMOY_CHAIN_ID = 80002; // Polygon Amoy (EVM chain ID)
+const LZ_SEPOLIA_CHAIN_ID = 10161; // LayerZero Sepolia chain ID
+const LZ_AMOY_CHAIN_ID = 10267; // LayerZero Amoy chain ID
 
-const PATH_TO_AMOY =
-  "0x6459C29749D6D85124d9d232Fe3d09fFf70267E9Db419a67652F9985767BA7D9D7C96dEDA7A14E5c";
-const PATH_TO_SEPOLIA =
-  "0xDb419a67652F9985767BA7D9D7C96dEDA7A14E5c6459C29749D6D85124d9d232Fe3d09fFf70267E9";
+// Trusted remote paths: Concatenation of remote address + local address
+const PATH_TO_AMOY = `0x26c521118e7EF2Ee9009fbE7ba4D2BEdAB97B3fD${EBRIDGE_CONFIG.address.slice(
+  2
+)}`;
+const PATH_TO_SEPOLIA = `0xE788cD5C7F5F020E42714b16AADf256B12701b39${PBRIDGE_CONFIG.address.slice(
+  2
+)}`;
 
 export default function ChangeRemoteTrusted() {
   const [network, setNetwork] = useState("sepolia");
@@ -51,7 +56,13 @@ export default function ChangeRemoteTrusted() {
   const { data: trustedRemoteAmoy } = useReadContract({
     ...PBRIDGE_CONFIG,
     functionName: "trustedRemoteLookup",
-    args: [40161],
+    args: [LZ_SEPOLIA_CHAIN_ID], // Check Sepolia trusted remote on Amoy
+  });
+
+  const { data: trustedRemoteSepolia } = useReadContract({
+    ...EBRIDGE_CONFIG,
+    functionName: "trustedRemoteLookup",
+    args: [LZ_AMOY_CHAIN_ID], // Check Amoy trusted remote on Sepolia
   });
 
   const handleSetTrustedRemote = async () => {
@@ -62,47 +73,45 @@ export default function ChangeRemoteTrusted() {
         network === "sepolia" ? SEPOLIA_CHAIN_ID : AMOY_CHAIN_ID;
       const contractConfig =
         network === "sepolia" ? EBRIDGE_CONFIG : PBRIDGE_CONFIG;
-      const remoteChainId = network === "sepolia" ? 40267 : 40161;
+      const remoteChainId =
+        network === "sepolia" ? LZ_AMOY_CHAIN_ID : LZ_SEPOLIA_CHAIN_ID;
       const path = network === "sepolia" ? PATH_TO_AMOY : PATH_TO_SEPOLIA;
       const owner = network === "sepolia" ? eBridgeOwner : pBridgeOwner;
 
-      console.log("Connected address:", address);
-      console.log("PBridge Owner:", pBridgeOwner);
-      console.log("EBridge Owner:", eBridgeOwner);
-      console.log("Trusted Remote for 40161:", trustedRemoteAmoy);
-
-      // Ensure owner is available
-      // if (!owner) {
-      //   toast.error("Failed to fetch owner. Check network or ABI.");
-      //   return;
-      // }
-
-      // if (address?.toLowerCase() !== owner?.toLowerCase()) {
-      //   toast.error(`Only the owner (${owner}) can set trusted remotes!`);
-      //   return;
-      // }
-
-      // Check if trusted remote is already set
-      if (trustedRemoteAmoy && trustedRemoteAmoy !== "0x") {
-        toast.error("Trusted remote already set for chain 40161!");
+      // Check if connected address is the owner
+      if (
+        address?.toLowerCase() !== owner?.toLowerCase() &&
+        owner !== undefined
+      ) {
+        toast.error(`Only the owner (${owner}) can set trusted remotes!`);
         return;
       }
 
+      // Check if trusted remote is already set
+      const currentTrustedRemote =
+        network === "sepolia" ? trustedRemoteSepolia : trustedRemoteAmoy;
+      if (currentTrustedRemote && currentTrustedRemote !== "0x") {
+        toast.error(`Trusted remote already set for chain ${remoteChainId}!`);
+        return;
+      }
+
+      // Switch to the correct chain if needed
       if (chain?.id !== targetChainId) {
         toast("Switching network...");
         await switchChainAsync({ chainId: targetChainId });
       }
 
+      // Execute the contract call
       const tx = await writeContractAsync({
         ...contractConfig,
-        functionName: "setTrustedRemote",
+        functionName: "setTrustRemote", // Correct function name from your contract
         args: [remoteChainId, path],
-        gas: BigInt(300000),
+        gas: BigInt(300000), // Gas limit for the transaction
       });
 
       toast.success("Trusted remote set!");
       setTransactionHash(tx);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Transaction failed:", error);
       toast.error(`Transaction failed: ${error.message || "Unknown error"}`);
     } finally {
@@ -161,7 +170,12 @@ export default function ChangeRemoteTrusted() {
       )}
       {trustedRemoteAmoy && (
         <p className="text-sm text-gray-400 mt-2">
-          Trusted Remote (40161): {trustedRemoteAmoy}
+          PBridge Trusted Remote (Sepolia): {trustedRemoteAmoy}
+        </p>
+      )}
+      {trustedRemoteSepolia && (
+        <p className="text-sm text-gray-400 mt-2">
+          EBridge Trusted Remote (Amoy): {trustedRemoteSepolia}
         </p>
       )}
     </div>

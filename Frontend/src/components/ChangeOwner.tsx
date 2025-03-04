@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { PolTokenAbi } from "../Abi/PolToken";
 
 const contractConfig = {
-  address: "0xA26617fd7cDd479E41CEe7E64c357ACB5d617e54",
+  address: "0xF729894D447B127ff81420f08BFAfFEBF65F9257", // Updated to your deployed PTKN contract address
   abi: PolTokenAbi,
 } as const;
 

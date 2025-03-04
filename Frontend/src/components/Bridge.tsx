@@ -5,12 +5,12 @@ import { EthBridgeAbi } from "../Abi/EthBridge";
 import { EthTokenAbi } from "../Abi/EthToken";
 
 const wagmiContractConfig = {
-  address: "0x3fB3712731367F3ab9503dcD06eFd024E7c72642",
+  address: "0x8fa741639BCB1Eb73833Fb4C3559FD7f495f3Ca8",
   abi: EthTokenAbi,
 } as const;
 
 const wagmiContractConfigEthBridge = {
-  address: "0xDb419a67652F9985767BA7D9D7C96dEDA7A14E5c",
+  address: "0xE788cD5C7F5F020E42714b16AADf256B12701b39",
   abi: EthBridgeAbi,
 } as const;
 
